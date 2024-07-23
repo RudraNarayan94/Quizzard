@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz Detail{% endblock %}
+
+{% block body %}
+{% include "navbar.html" %}
+<div class="container mt-5 pt-4">
+  <div class="quiz-detail">
+    <h2 class="text-center">{{ quiz.title }}</h2>
+    <p class="text-center text-muted">Created by: {{ quiz.author.username }} | Created on: {{ quiz.created_at|date:"F
+      j,Y" }}</p>
+
+    <div class="quiz-description my-4">
+      <h5>Description:</h5>
+      <p>{{ quiz.description }}</p>
+    </div>
+
+    <div class="quiz-questions my-4">
+      <h5>Number of Questions: {{ quiz.no_of_questions }}</h5>
+      <ul class="list-group">
+        {% for question in quiz.questions.all %}
+        <li class="list-group-item">
+          <strong>{{ forloop.counter }}. {{ question.text }}</strong>
+          <ul class="mt-2">
+            {% for choice in question.choices.all %}
+            <li>{{ choice.text }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{% url 'participate_in_quiz' quiz.id %}" class="btn btn-primary">Participate in Quiz</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
