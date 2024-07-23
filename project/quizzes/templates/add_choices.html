@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add Choices for Question: "{{ question.text }}"</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ formset.management_form }}
+  {% for form in formset %}
+  {{ form.as_p }}
+  {% endfor %}
+  <button type="submit" name="add_question">Add Another Question</button>
+  <button type="submit" name="submit_quiz">Submit Quiz</button>
+</form>
+{% endblock %}

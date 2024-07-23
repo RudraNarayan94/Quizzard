@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Quiz Results for {{ quiz.title }}</h1>
+
+<!-- Display user's result -->
+<div>
+  <h2>Your Result:</h2>
+  <p>Score: {{ participation.score }}</p>
+</div>
+
+<!-- Display leaderboard -->
+<div>
+  <h2>Leaderboard:</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>User</th>
+        <th>Score</th>
+        <th>Date Completed</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in leaderboard %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ entry.user.username }}</td>
+        <td>{{ entry.score }}</td>
+        <td>{{ entry.completed_at|date:"M d, Y H:i" }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">No participants yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<a href="{% url 'participate_in_quiz' quiz.id %}">Take the Quiz Again</a>
+<a href="{% url '' %}">Back to home page</a>
+
+{% endblock %}
