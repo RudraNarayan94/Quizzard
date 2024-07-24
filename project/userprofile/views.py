@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import UserProfileModel, UserAchievementModel
+from .models import UserProfileModel ,UserAchievementModel
 from quizzes.models import QuizModel, ParticipationModel
 
 
@@ -58,11 +58,6 @@ def signup_view(request):
     return render(request, 'signup.html')
 
 
-# Logout view
-@login_required
-def logout_view(request):
-    logout(request)
-    return redirect('login_view')
 
 
 # Profile view
@@ -70,6 +65,9 @@ def logout_view(request):
 def profile_view(request, username):
     user_instance = get_object_or_404(get_user_model(), username=username)
     is_user_profile = request.user.username == username
+
+    user_achievement = UserAchievementModel.objects.filter(user=user_instance).first()
+    
     quizzes_created = QuizModel.objects.filter(author=user_instance)
     quizzes_participated = ParticipationModel.objects.filter(user=user_instance)
 
@@ -77,8 +75,8 @@ def profile_view(request, username):
         "is_user_profile": is_user_profile,
         "quizzes_created_count": quizzes_created.count(),
         "quizzes_participated_count": quizzes_participated.count(),
-        #"correct_answers_count": user_instance.userachievementmodel.correct_answers,
-        #"achievement": user_instance.userachievementmodel,
+        "correct_answers_count": user_achievement.correct_answers if user_achievement else 0,
+        "achievement": user_achievement.description if user_achievement else "No achievements yet.",
         "user_created": quizzes_created,
         "user_participated": quizzes_participated,
     }
@@ -137,4 +135,10 @@ def update_password_view(request):
 @login_required
 def delete_profile_view(request):
     request.user.delete()
+    return redirect('login_view')
+
+# Logout view
+@login_required
+def logout_view(request):
+    logout(request)
     return redirect('login_view')
