@@ -7,7 +7,7 @@
 1. Ensure that you have Python 3.x and pip installed on your system.
 2. Clone this repository using the following command:
    ```
-   git clone https://github.com/rsk-2002/brainbunny-backend-django.git
+   git clone https://github.com/RudraNarayan94/Quizzard.git
    ```
 3. Create a virtual environment:
    ```
