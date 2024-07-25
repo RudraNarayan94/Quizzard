@@ -1,4 +1,4 @@
-#Quizzard
+# Quizzard
 
 **It is a simple quiz application** created using Bootstrap and Django.
 
@@ -41,9 +41,9 @@
 
 ## Contributors
 
-> Rudra Narayan Sahoo
-> Rounak Biswal
-> Sanjana Mohanta
+- Rudra Narayan Sahoo
+- Rounak Biswal
+- Sanjana Mohanta
 
 ## Contributing
 
