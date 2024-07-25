@@ -12,7 +12,7 @@ def home_view(request):
         username = request.POST.get('username')
         if get_user_model().objects.filter(username=username).exists():
             return redirect('profile_view', username)
-    quiz_data = QuizModel.objects.exclude(author=request.user)
+    quiz_data = QuizModel.objects.all()
     return render(request, 'home.html', context={"request": request, "user": request.user, "quizzes": quiz_data})
 
 

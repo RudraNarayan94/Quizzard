@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 class QuizModel(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="QuizModel_user",null=True)
-    quiz_picture = models.ImageField(upload_to="quiz_pictures/",default='/media/user.png',null=True, blank=True)
+    quiz_picture = models.ImageField(upload_to="quiz_pictures/",null=True, blank=True)
     description = models.TextField(null=True,blank=True)
     no_of_questions= models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)

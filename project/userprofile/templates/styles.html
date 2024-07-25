@@ -1,19 +1,41 @@
 <style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .row {
+  .navbar {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    cursor: pointer;
+
   }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    background-size: 600% 600%;
+
+  }
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
 
   .login-logo,
   .signup-logo {
-    padding: 20px;
+    padding: 150px;
   }
 
   .login-form,
@@ -21,6 +43,48 @@
     max-width: 400px;
     margin: 0 auto;
   }
+
+  /* .login-form-container {
+    background-color: black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .login-form h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .login-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+  }
+
+  .login-form .btn {
+    background-color: #1a73e8;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  } */
+
+  .login-form .btn:hover {
+    background-color: #155ab6;
+  }
+
+  /* .login-form p {
+    color: white;
+    text-align: center;
+  } */
+
 
   .btn-block {
     width: 100%;
@@ -30,6 +94,7 @@
     text-align: center;
   }
 
+
   h2 {
     margin-top: 10px;
     /* Reduce space above the username */
@@ -37,34 +102,40 @@
     /* Reduce space below the username */
   }
 
-  p {
-    margin-bottom: 15px;
-    /* Consistent spacing below paragraph */
-  }
-
-  .profile-stat {
-    margin-bottom: 20px;
-    /* Space between stats and buttons */
-  }
-
-  .btn-block {
-    margin-top: 5px;
-    /* Reduce space between buttons */
-  }
-
-  .card-body {
-    padding: 20px;
+  .card {
+    margin-top: 60px;
+    /* Adjust the value as needed for space between navbar and card */
   }
 
   .profile-img {
     width: 150px;
     height: 150px;
     object-fit: cover;
+    border-radius: 50%;
+    /* Ensures the image is circular */
     border: 1px solid rgb(224, 211, 211);
   }
 
+  .btn-block {
+    margin-top: 5px;
+  }
+
+  .card-body {
+    padding: 20px;
+
+  }
+
+  .nav-tabs .nav-item {
+    width: 50%;
+    text-align: center;
+    align-items: left;
+
+  }
+
+
+
   .card {
-    margin: 0;
+    margin: 10px;
     padding: 10px;
   }
 
@@ -86,8 +157,10 @@
 
   .advertisement {
     background-color: #f5f5f5;
-    height: 250px;
-    border: 1px solid #ddd;
+    height: 400px;
+    width: 100%;
+    padding: 1px 1px 1px 1px;
+    border: 1px solid white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,6 +172,8 @@
     display: block;
     width: 100%;
     margin-bottom: 20px;
+    background: linear-gradient(-45deg, #e8724e, #e73c7e, #23a6d5, #23d5ab);
+    animation: gradientAnimation 15s ease infinite
   }
 
   .quiz-card {
@@ -119,9 +194,7 @@
 
   footer {
     background-color: #282c34;
-    /* Dark background color for contrast */
     color: #f5f5f5;
-    /* Light text color for readability */
     padding: 20px;
     position: relative;
     bottom: 0;

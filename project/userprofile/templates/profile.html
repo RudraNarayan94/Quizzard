@@ -6,58 +6,60 @@
 <div class="container mt-5 pt-4">
   <div class="row">
     <div class="col-md-4 text-center">
-      <div class="card mb-4 box-shadow">
-        <div class="card-body" style="padding: 20px;">
-          <a href="#">
-            {% if user.UserProfileModel_user.has_profile_pic %}
-            <img src="{{ user.UserProfileModel_user.profile_picture.url }}" class="profile-img rounded-circle mb-3"
-              alt="Profile Image"
-              style="width: 150px; height: 150px; object-fit: cover; border: 1px solid rgb(224, 211, 211);">
-            {% else %}
-            <img src="user.png" class="profile-img rounded-circle mb-3" alt="Profile Image"
-              style="width: 150px; height: 150px; object-fit: cover; border: 1px solid rgb(224, 211, 211);">
-            {% endif %}
-          </a>
-          <h2 class="mt-2">{{ user.username }}</h2>
-          <p><strong>{{ user.first_name }} {{ user.last_name }}</strong><br />{{ user.UserProfileModel_user.bio }}</p>
 
-          <div class="row text-center mb-3">
-            <div class="col-12 mb-2">
-              <div class="card" style="margin: 0; padding: 10px;">
-                <div class="card-body" style="padding: 10px;">
-                  <strong>{{ data.quizzes_created_count }}</strong><br>Quizzes Created
-                </div>
-              </div>
-            </div>
-            <div class="col-12 mb-2">
-              <div class="card" style="margin: 0; padding: 10px;">
-                <div class="card-body" style="padding: 10px;">
-                  <strong>{{ data.quizzes_participated_count }}</strong><br>Quizzes Participated
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card" style="margin: 0; padding: 10px;">
-                <div class="card-body" style="padding: 10px;">
-                  <strong>{{ data.correct_answers_count }}</strong><br>Correct Answers
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <h5>Achievements</h5>
-            <p>{{ data.achievement }}</p>
-          </div>
-
-          {% if data.is_user_profile %}
-          <a href="{% url 'update_user_profile' %}" class="btn btn-outline-primary btn-block mt-3">Edit Profile</a>
-          <a href="{% url 'update_password_view' %}" class="btn btn-outline-info btn-block mt-3">Update Password</a>
-          <a href="{% url 'delete_profile_view' %}" class="btn btn-outline-danger btn-block mt-3">Delete Account</a>
+      <div class="card-body  mt-5" style="padding: 20px;">
+        <a href="#">
+          {% if user.UserProfileModel_user.has_profile_pic %}
+          <img src="{{ user.UserProfileModel_user.profile_picture.url }}" class="profile-img rounded-circle mb-3"
+            alt="Profile Image"
+            style="width: 150px; height: 150px; object-fit: cover; border: 1px solid rgb(224, 211, 211);">
+          {% else %}
+          <img
+            src="https://filestore.community.support.microsoft.com/api/images/0ce956b2-9787-4756-a580-299568810730?upload=true"
+            class="profile-img rounded-circle mb-3" alt="Profile Image"
+            style="width: 150px; height: 150px; object-fit: cover; border: 1px solid rgb(224, 211, 211);">
           {% endif %}
+        </a>
+        <h2 class="mt-2">{{ user.username }}</h2>
+        <p><strong>{{ user.first_name }} {{ user.last_name }}</strong><br />{{ user.UserProfileModel_user.bio }}</p>
+
+        <div class="row text-center mb-3">
+          <div class="col-12 mb-2">
+            <div class="card" style="margin: 0; padding: 10px;">
+              <div class="card-body" style="padding: 10px;">
+                <strong>{{ data.quizzes_created_count }}</strong><br>Quizzes Created
+              </div>
+            </div>
+          </div>
+          <div class="col-12 mb-2">
+            <div class="card" style="margin: 0; padding: 10px;">
+              <div class="card-body" style="padding: 10px;">
+                <strong>{{ data.quizzes_participated_count }}</strong><br>Quizzes Participated
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="card" style="margin: 0; padding: 10px;">
+              <div class="card-body" style="padding: 10px;">
+                <strong>{{ data.correct_answers_count }}</strong><br>Correct Answers
+              </div>
+            </div>
+          </div>
         </div>
 
+        <!-- <div class="mb-3">
+          <h5>Achievements</h5>
+          <p>{{ data.achievement }}</p>
+        </div> -->
+
+        {% if data.is_user_profile %}
+        <a href="{% url 'update_user_profile' %}" class="btn btn-outline-primary btn-block mt-3">Edit Profile</a>
+        <a href="{% url 'update_password_view' %}" class="btn btn-outline-info btn-block mt-3">Update Password</a>
+        <a href="{% url 'delete_profile_view' %}" class="btn btn-outline-danger btn-block mt-3">Delete Account</a>
+        {% endif %}
       </div>
+
+
     </div>
 
 

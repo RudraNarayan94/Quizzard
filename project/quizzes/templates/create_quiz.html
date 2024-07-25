@@ -8,7 +8,9 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      background: linear-gradient(45deg, #f4f4f9, #e0e0e0);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
       color: #333;
       margin: 0;
       padding: 0;
@@ -18,19 +20,51 @@
       height: 100vh;
     }
 
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      50% {
+        background-position: 100% 100%;
+      }
+
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+
     form {
-      background-color: #fff;
-      padding: 20px;
+      background-color: rgba(178, 153, 153, 0.9);
+      background-image: url('/quizzes/this.jpeg');
+      background-size: cover;
+      background-position: center;
+      padding: 100px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
+      max-width: 220px;
       width: 100%;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+
     }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
 
     h1 {
       font-size: 24px;
       margin-bottom: 20px;
       text-align: center;
+      color: #333;
     }
 
     label {
@@ -48,6 +82,14 @@
       border: 1px solid #ddd;
       border-radius: 4px;
       box-sizing: border-box;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      outline: none;
     }
 
     input[type="file"] {
@@ -64,10 +106,12 @@
       cursor: pointer;
       border-radius: 4px;
       width: 100%;
+      transition: background-color 0.3s, transform 0.3s;
     }
 
     button:hover {
       background-color: #0056b3;
+      transform: scale(1.05);
     }
 
     .home-button {
@@ -77,6 +121,14 @@
 
     .home-button a {
       text-decoration: none;
+    }
+
+    .home-button button {
+      background-color: #6c757d;
+    }
+
+    .home-button button:hover {
+      background-color: #5a6268;
     }
   </style>
 </head>
@@ -98,7 +150,7 @@
 
     <div class="home-button">
       <a href="{% url 'home_view' %}">
-        <button type="button">Return to Home Page</button>
+        <button type="button">Return to Home</button>
       </a>
     </div>
   </form>

@@ -19,7 +19,7 @@
     }
 
     form {
-      background-color: #fff;
+      background-color: rgba(178, 153, 153, 0.9);
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -68,7 +68,7 @@
     }
 
     button {
-      background-color: #28a745;
+      background-color: #361dd7;
       color: white;
       border: none;
       padding: 12px;
@@ -81,11 +81,11 @@
     }
 
     button:last-child {
-      margin-right: 0;
+      margin-right: 2px;
     }
 
     button:hover {
-      background-color: #218838;
+      background-color: #88213e;
     }
   </style>
 </head>
@@ -107,9 +107,11 @@
       <option value="2">Choice 3</option>
       <option value="3">Choice 4</option>
     </select>
+    <div class="button-container">
 
-    <button type="submit" name="add_question">Add Another Question</button>
-    <button type="submit">Finish</button>
+      <button type="submit" name="add_question">Add Another Question</button>
+      <button type="submit">Finish</button>
+    </div>
   </form>
 </body>
 
