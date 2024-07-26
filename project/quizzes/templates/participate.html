@@ -73,7 +73,6 @@
       margin-top: 20px;
       margin-right: 10px;
       display: inline-block;
-      text-decoration: none;
     }
 
     .btn-success {
@@ -98,10 +97,15 @@
   <div class="container mt-5 pt-4">
     <div class="quiz-participation">
       <h2 class="text-center">{{ quiz.title }}</h2>
+      <p class="text-center text-muted">Duration: {{ duration }} minutes</p>
       <p class="text-center text-muted">Answer the questions below:</p>
+      <div class="quiz-timer text-center">
+        Time Remaining: <span id="timer"></span>
+      </div>
 
-      <form method="post">
+      <form method="post" id="participationForm">
         {% csrf_token %}
+        <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
         {% for question in quiz.QuestionModel_quiz.all %}
         <div class="question my-4">
           <h5>{{ forloop.counter }}. {{ question.text }}</h5>
@@ -125,5 +129,34 @@
     </div>
   </div>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const durationInMinutes = parseInt('{{ duration|default:0 }}', 10);
+    const durationInMillis = durationInMinutes * 60000;
+    let timeRemaining = durationInMillis;
+
+    updateTimerDisplay(timeRemaining);
+
+    const countdownInterval = setInterval(function () {
+      timeRemaining -= 1000;
+      updateTimerDisplay(timeRemaining);
+
+      if (timeRemaining <= 0) {
+        clearInterval(countdownInterval);
+        document.getElementById('participationForm').submit();
+      }
+    }, 1000);
+
+    function updateTimerDisplay(timeInMillis) {
+      const minutes = Math.floor(timeInMillis / 60000);
+      const seconds = Math.floor((timeInMillis % 60000) / 1000);
+
+      // Ensure seconds display with leading zero if < 10
+      const timerDisplay = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      document.getElementById('timer').textContent = timerDisplay;
+    }
+  });
+</script>
+
 
 </html>

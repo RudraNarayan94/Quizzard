@@ -9,6 +9,8 @@ class QuizModel(models.Model):
     quiz_picture = models.ImageField(upload_to="quiz_pictures/",null=True, blank=True)
     description = models.TextField(null=True,blank=True)
     no_of_questions= models.IntegerField(default=0)
+    duration_minutes = models.IntegerField(default=10)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
 class QuestionModel(models.Model):
@@ -24,4 +26,5 @@ class ParticipationModel(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='ParticipationModel_user')
     quiz = models.ForeignKey(QuizModel, on_delete=models.CASCADE,related_name='ParticipationModel_quiz')
     score = models.IntegerField(default=0)
-    completed_at = models.DateTimeField(auto_now_add=True)
+    completion_minutes = models.IntegerField(default=0)
+    completed_at = models.TimeField(auto_now_add=True)

@@ -6,18 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz Result</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     h1,
     h2 {
       color: #007bff;
       text-align: center;
     }
 
-    div {
+    .result-section,
+    .leaderboard-section {
+      width: 80%;
+      max-width: 800px;
       background-color: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
+      text-align: center;
     }
 
     table {
@@ -71,13 +85,14 @@
   <h1>Quiz Results for {{ quiz.title }}</h1>
 
   <!-- Display user's result -->
-  <div>
+  <div class="result-section">
     <h2>Your Result:</h2>
     <p>Score: {{ participation.score }}</p>
+    <p>Completion Time: {{ participation.completion_minutes }} minutes</p>
   </div>
 
   <!-- Display leaderboard -->
-  <div>
+  <div class="leaderboard-section">
     <h2>Leaderboard:</h2>
     <table>
       <thead>
@@ -85,7 +100,7 @@
           <th>Rank</th>
           <th>User</th>
           <th>Score</th>
-          <th>Date Completed</th>
+          <th>Completion Time (minutes)</th>
         </tr>
       </thead>
       <tbody>
@@ -94,7 +109,7 @@
           <td>{{ forloop.counter }}</td>
           <td>{{ entry.user.username }}</td>
           <td>{{ entry.score }}</td>
-          <td>{{ entry.completed_at|date:"M d, Y H:i" }}</td>
+          <td>{{ entry.completion_minutes }}</td>
         </tr>
         {% empty %}
         <tr>
@@ -111,3 +126,5 @@
     <a href="{% url 'home_view' %}" class="btn btn-secondary">Back to Home</a>
   </div>
 </body>
+
+</html>

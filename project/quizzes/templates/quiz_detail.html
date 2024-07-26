@@ -118,6 +118,10 @@
       <div class="quiz-questions my-4">
         <h5>Number of Questions: {{ quiz.no_of_questions }}</h5>
       </div>
+      <div class="quiz-duration my-4">
+        <h5>Duration : {{ quiz.duration_minutes }} minutes</h5>
+      </div>
+
 
       <div class="button-container">
         <a href="{% url 'participate_in_quiz' quiz.id %}" class="btn btn-primary">Participate in Quiz</a>

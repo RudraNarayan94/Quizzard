@@ -4,6 +4,8 @@ from django.forms import modelformset_factory
 from .models import QuizModel, QuestionModel, ChoiceModel,ParticipationModel
 from userprofile.models import UserAchievementModel
 from django.db import transaction
+from django.utils import timezone
+from datetime import timedelta
 
 
 # Create your views here.
@@ -13,13 +15,15 @@ def create_quiz_view(request):
         title = request.POST.get('title')
         description = request.POST.get('description')
         image = request.FILES.get('image')
+        duration_minutes = request.POST.get('duration_minutes')
 
-        if title and description and image:
+        if title and description and image and duration_minutes:
             quiz = QuizModel.objects.create(
                 author=request.user,
                 title=title,
                 description=description,
-                quiz_picture=image
+                quiz_picture=image,
+                duration_minutes=int(duration_minutes)
             )
             return redirect('add_question', quiz_id=quiz.id)
     return render(request, 'create_quiz.html')
@@ -102,14 +106,21 @@ def participate_in_quiz_view(request, quiz_id):
                 except ChoiceModel.DoesNotExist:
                     pass
 
-        ParticipationModel.objects.create(user=request.user, quiz=quiz, score=score)
+        start_time = request.session.get('quiz_start_time')
+        completion_time = timezone.now()
+        if start_time:
+            time_taken = (completion_time - start_time).seconds // 60
+        else:
+            time_taken = 0
+
+        ParticipationModel.objects.create(user=request.user,quiz=quiz,score=score,completion_minutes=time_taken)
 
         user_achievement, created = UserAchievementModel.objects.get_or_create( user=request.user)
         user_achievement.correct_answers += score
         user_achievement.save()
         return redirect('quiz_result', quiz_id=quiz.id)
-
-    return render(request, 'participate.html', context={'quiz': quiz})
+        request.session['quiz_start_time'] = timezone.now()
+    return render(request, 'participate.html', context={'quiz': quiz, 'duration': quiz.duration_minutes})
 
 
 def quiz_detail_view(request, quiz_id):
@@ -119,9 +130,8 @@ def quiz_detail_view(request, quiz_id):
 
 def quiz_result_view(request, quiz_id):
     quiz = get_object_or_404(QuizModel, id=quiz_id)
-    participation = ParticipationModel.objects.filter(user=request.user, quiz=quiz).first() 
-
-    leaderboard = ParticipationModel.objects.filter(quiz=quiz).order_by('-score')
+    participation = ParticipationModel.objects.filter(user=request.user, quiz=quiz).order_by('-completed_at').first()
+    leaderboard = ParticipationModel.objects.filter(quiz=quiz).order_by('-score', 'completion_minutes')
 
     return render(request, 'quiz_result.html', context={'quiz': quiz,'participation': participation,'leaderboard': leaderboard, })
 
